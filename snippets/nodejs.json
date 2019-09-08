@@ -1,0 +1,7 @@
+{
+    "dockerfile_node" :{
+        "prefix": "dockerfile_node",
+        "description": "Simple nodejs dockerfile",
+        "body": "FROM node:latest\n\nLABEL name=\"app-name\"\nENV APP_PORT=3000 APP_DIR=/app\n\nWORKDIR ${APP_DIR}\n\nADD package.json .\nADD package-lock.json .\nADD . .\n\nRUN npm install \n\nHEALTHCHECK --interval=15s --timeout=10s --retries=3 CMD curl -f http://localhost:${APP_PORT}/health || exit 1\n\nEXPOSE ${APP_PORT}\n\nENTRYPOINT [ \"node\", \"main.js\" ]\n\nCMD [ \"\" ]\n"
+    }
+}
